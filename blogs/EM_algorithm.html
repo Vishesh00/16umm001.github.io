@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  	<meta name="description" content="My deep learning blog. I will post different deep learning algorithms here with proper explanation.">
+  	<meta name="author" content="Adarsh Pathak">
+
+  	<meta name="keywords" content="Deep Learning, Reinforcement Learning, Natural Language Processing, NLP, computer vision, recurrent neural networks, rnn, convolutional neural networks, cnn,Deep neural networks,dnn,face recognition,Artificial Intelligence, AI, Machine Learning, ML, Data Science, Python">
+
+	<title>EM Algorithm</title>
+
+  	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  	<link href="../css/blog-home.css" rel="stylesheet">
+
+
+<style>
+header{
+    color: #f4f4f4;
+    background-image: url("header-background.jpeg");    
+}
+
+header img{
+    float: left;
+    display: inline-block;
+}
+
+header h1{
+    font-size: 40px; 
+    color: #f4f4f4;
+    display: inline-block;
+    position: relative;
+    padding: 20px 20px 0 0;
+    display: inline-block;
+}
+</style>
+
+</head>
+<body>
+  	
+  	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="https://16umm001.github.io">
+        <p style="color: gray;opacity: 150%;">adarsh's blog</p>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://16umm001.github.io"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Blog
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navigation End-->
+
+ <div class="container">
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+
+        </br>
+
+        <!-- Blog Post -->
+        <div class="card mb-4">
+          <img class="card-img-top" src="../images/em-post.png" alt="Gradient Descent Optimization">
+          <div class="card-body">
+            <h2 class="card-title">Expectation-Maximization Algorithm</h2>
+            <p class="card-text">
+            	&emsp;DLR<sup>[7]</sup> introduces the EM algorithm for computing maximum likelihood for <U>incomplete data<sup>[7]</sup></U>. Since each iteration of the algorithm consists of an expectation step followed by a maximization step we call it the EM algorithm.<br>
+            	&emsp;In statistics,<B> an expectation–maximization (EM) algorithm is an iterative method to find (local) maximum likelihood or maximum a posteriori (MAP) estimates of parameters in statistical models, where the model depends on unobserved latent variables.</B> The EM iteration alternates between performing an expectation (E) step, which creates a function for the expectation of the log-likelihood evaluated using the current estimate for the parameters, and a maximization (M) step, which computes parameters maximizing the expected log-likelihood found on the E step. These parameter-estimates are then used to determine the distribution of the latent variables<sup>[8]</sup> in the next E step<sup>[3]</sup>.<br> 
+            </p>
+
+            <p class="card-text">
+            	<B>Latent<sup>[8]</sup> (hidden) Variables:</B>&nbsp; Consider the following sentence: “Einstein would not have been able to come up with his e=mc<sup>2</sup> had he not possessed such an extraordinary intelligence.” What does this sentence express? It relates observable behavior (Einstein’s writing e=mc<sup>2</sup>) to an unobservable attribute (his extraordinary intelligence), and it does so by assigning to the unobservable attribute a causal role in bringing about Einstein’s behavior. In psychology, there are many constructs that play this type of role in theories of human behavior; examples are constructs like extraversion, spatial ability, self- efficacy, and attitudes. Such variables are usually referred to as latent variables.  <br>
+            	<q>In above example intelligence of Einstein is latent variable. We can not observe this directly.</q>
+            </p>
+
+            <br>
+            <!-- Definition of KL divergence and Jensen's inequality -->
+            <div style="width: 100%;padding: 10px;border: 5px solid gray;margin: 0;">
+            <p class="card-text">
+            	<B>Jensen's Inequality<sup>[9]</sup>:</B> &nbsp; If g(x) is a convex function on R<sub>X</sub> ,and E[g(X)] and g(E[X]) are infinite then<br>
+            	<h6 style="text-align: center;">E[g(X)] &ge; g(E[X])</h6><br>
+            	<dl style="padding-left: 5%">
+  					You can prove Jensen's Inequality in saveral ways:
+  					<dd>- Finite form<sup>[10]</sup></dd>
+  					<dd>- Measure-theoretic form<sup>[10]</sup></dd>
+  					<dd>- General inequality in a probabilistic setting<sup>[10]</sup></dd>
+				</dl>
+            </p>
+
+            <p class="card-text">
+            	<B>Kullback–Leibler divergence:</B>&nbsp;The KL-divergence<sup>[11]</sup>,also known as the relative entropy,between two probability density functions f(x) and g(x),
+            	<h5 style="text-align: center;">D(f||g) = <span style='font-size:40px;'>&#8747;</span>f(x)log(f(x)&divide;g(x))dx</h5>
+            	is commonly used in statistics as a measure of similarity between two density distributions.
+            </p>
+            </div>
+            <!-- End definition-->
+
+            <br>
+            <br>
+
+            <p class="card-text">
+            	<h5><u>General Form of Expectation Maximization Algorithm:</u></h5><br>
+            	<div>
+            	This figure<sup>[1]</sup> illustrates how we will work with EM Algorithm.
+            	<img src="../images/em_overview.png" alt="EM-Algorithm">
+            	</div>
+            	<br>
+
+            	EM might look like a heuristic method<sup>[5]</sup>. However, as we show now, it has a rigorous foundation: EM is guaranteed to find a local optimum of data log likelihood. Recall if we have complete data {(x, t)<sub>1:n</sub>} (as in standard Naive Bayes), the joint log likelihood under parameters Θ is:<br>
+            	<br>
+            	<img src="../images/em_prob1.png"><br>
+            	However, now t<sub>1:K</sub> are hidden variables. We instead maximize the marginal log likelihood. <br>
+            	<img src="../images/em_eq2.png"><br>
+            	<img src="../images/equns_1.png"><br>
+            	<br>
+            	Let's me explain above all five equations. Since EM algorithms works with latent variable so we introduced a latent variable t<sub>i</sub>. Now our task is to maximiza log likelihood. Since log is monotonic increasing function so it will not change our final aim of maximization. We had to calculate Maximum log likelihood(MLE) for each x so we used equation(3). If we simplify equation (3) we will get our next equation (4). In equation (5) we introduced our latent variable t. In equation (5) we supposed that L(&theta;) is the lower bound of our euqtion which we will calculate later. Instead of maximizing P(X|&theta;) we will maximize lower bound of this equation that is L(&theta;). Which is easy to maximize than the original equation. <br> 
+            	<strong>We had assumed that there is one parameter &theta;, there can be multiple paramtere to calculate but for simplicity we are assuming only one parameter.</strong>
+            	<br>
+            	For simplicity let say K = 3
+            	<br>
+            	<img src="../images/equns_2.png">
+            	<img src="../images/lthetaq.png">
+            	<br>
+            	Above equation helps us to understand L(&theta;) which is calculated using jensen's inequality. Now for any q we want to maximize &theta;. L(&theta;,q) is family of lower bounds.  What we want to do with this lower bound?
+            	We will try to find best value of &theta; for which lower bound L(&theta;,q) is very close ot our original euqation.
+            	<!--<img src="../images/equns_3.png"> -->
+            	<br>
+            	<br>
+            	<h4>E-step:</h4> &nbsp;
+            	<br>
+            	<img src="../images/em_graph.png">
+            	<br>
+            	<br>
+            	Above graph helps us to understand what our main aim is. Our task is to minimize that gap. How we will do that?<br>
+            	&emsp; For that let's start with E-step which will help us to find parameter q for specific &theta; value. We know the value of L(&theta;,q) and we have Kullback-Leibler equation. what will be the value of "Gap"? Let me calculate this for you. <strong>Gap = log p(X|&theta;) - L(&theta;,q)</strong>. So we have equation of gap and we had to minmize that Gap or we have to maximize L(&theta;,q). 
+            	<br>
+            	<img src="../images/equns_4.png">
+            	<br>
+            	<br>
+            	The above equation is Kullback-Leibler divergence. We can re write that equation as:<br>
+            	<img src="../images/equns_5.png">
+            	<br>
+            	<h5>E-step:</h5>
+            	<img src="../images/equns_6.png">
+            	<br>
+            	<br>
+
+            	<h5>M-step:</h5>
+            	<br>
+            	Once we update variable in E-step now we will update hypothesis in M-step.
+            	<img src="../images/equns_7.png">
+            	<br>
+            	We can calculate new hypothesis using calculas. Run this process untill it converese to a certain value.
+				<br>
+				<br>
+            </p>
+
+            <br>
+            <br>
+
+            <div style="width: 100%;padding: 10px;border: 5px solid gray;margin: 0;">
+            	<strong>E-step python code</strong><br>
+            	<code>
+            		from scipy.stats import multivariate_normal as mn
+<br>
+def E_step(X, pi, mu, sigma):<br>
+    &emsp;&emsp;N = X.shape[0] # number of objects<br>
+    &emsp;&emsp;C = pi.shape[0] # number of clusters<br>
+    &emsp;&emsp;d = mu.shape[1] # dimension of each object<br>
+    &emsp;&emsp;gamma = np.zeros((N, C)) # distribution q(T)<br>
+
+    &emsp;&emsp;norm = np.zeros_like(gamma)<br>
+    &emsp;&emsp;for i in range(C):<br>
+    &emsp;&emsp;&emsp;&emsp;norm[:,i] = mn.pdf(X,mu[i],sigma[i])<br>
+    &emsp;&emsp;&emsp;&emsp;norm[:,i] = pi[i]*norm[:,i]<br>
+    &emsp;&emsp;gamma = norm/np.reshape(np.sum(norm, axis=1), (norm.shape[0],1))<br>
+    &emsp;&emsp;return gamma<br>
+            	</code>
+            </div>
+            <br>
+        <div style="width: 100%;padding: 10px;border: 5px solid gray;margin: 0;">
+        	<strong>M-step python code</strong><br>
+        	<code>
+        		def M_step(X, gamma):<br>
+    			&emsp;&emsp;N = X.shape[0] # number of objects<br>
+    			&emsp;&emsp;C = gamma.shape[1] # number of clusters<br>
+    			&emsp;&emsp;d = X.shape[1] # dimension of each object<br>
+
+    			&emsp;&emsp;pi_ind = [sum(gamma[:,i]) for i in range(C)]<br>
+    			&emsp;&emsp;mu = np.zeros((C,d))<br>
+    			&emsp;&emsp;pi = np.zeros(C)<br>
+    			&emsp;&emsp;sigma = np.zeros((C,d,d))<br>
+    			&emsp;&emsp;for k in range(C):<br>
+        			&emsp;&emsp;&emsp;&emsp;&emsp;q_sum = gamma[:,k].sum()<br>
+        			&emsp;&emsp;&emsp;&emsp;&emsp;mu[k,:] = (X*gamma[:,k][:, np.newaxis]).sum(axis=0)/ q_sum<br>
+        			&emsp;&emsp;&emsp;&emsp;&emsp;sigma[k,:] = np.sum([gamma[i,k] * np.outer(X[i] - mu[k], X[i] - mu[k])<br>
+        			&emsp;&emsp;&emsp;&emsp;&emsp;for i in range(N)], axis=0) / q_sum<br>
+        			&emsp;&emsp;&emsp;&emsp;&emsp;pi[k] = q_sum / N<br>
+
+    			&emsp;&emsp;return pi, mu, sigma<br>
+        	</code>
+        </div>
+        <br>
+        <h4>What Next?</h4>
+        &emsp; We will implement this algorithm in more NLP algorithms such as LDA,HMM etc. 
+        		In next article I will explain how we can implemet EM algorithm in Gaussian Mixture model , Latent dirichlet allocation, Hidden Markov model etc with python code and train our model with this algorithms for different purpose. We can do topic modelling with this algorithm. Still i had not covered enough topic to train model. After next article I will train GMM model and analyse results. 
+            <!-- Reference --->
+            <p class="card-text">
+            	<h4> References:</h4>
+            	<p style="margin-left: 50px">
+            		<ol>
+            			<li>
+            				Moon, T. K. (1996). The expectation-maximization algorithm. IEEE Signal Processing Magazine, 13(6), 47–60. doi:10.1109/79.543975 
+            			</li>
+            			<li>
+            				Wu, CF Jeff. "On the convergence properties of the EM algorithm." The Annals of statistics (1983): 95-103.
+            			</li>
+            			<li>
+            				https://en.wikipedia.org/wiki/Expectation–maximization_algorithm
+            			</li>
+            			<li>
+            				EM Demystified: An Expectation-Maximization Tutorial
+            			</li>
+            			<li>
+            				http://pages.cs.wisc.edu/~jerryzhu/cs838/EM.pdf
+            			</li>
+            			<li>
+            				https://www.preprints.org/manuscript/201802.0131/v2
+            			</li>
+            			<li>
+            				Dempster, Arthur P., Nan M. Laird, and Donald B. Rubin. "Maximum likelihood from incomplete data via the EM algorithm." Journal of the Royal Statistical Society: Series B (Methodological) 39.1 (1977): 1-22.
+            			</li>
+            			<li>
+            				Borsboom, Denny, Gideon J. Mellenbergh, and Jaap Van Heerden. "The theoretical status of latent variables." Psychological review 110.2 (2003): 203.
+            			</li>
+            			<li>
+            				https://www.probabilitycourse.com/chapter6/6_2_5_jensen%27s_inequality.php
+            			</li>
+            			<li>
+            				https://en.wikipedia.org/wiki/Jensen%27s_inequality
+            			</li>
+            			<li>
+            				Hershey, J. R., & Olsen, P. A. (2007). Approximating the Kullback Leibler Divergence Between Gaussian Mixture Models. 2007 IEEE International Conference on Acoustics, Speech and Signal Processing - ICASSP ’07.
+            			</li>
+            			<li>
+            				Coursera : Bayesian Method for machine learning by Higher School of Economics, Russia.
+            			</li>
+            		</ol>
+            	</p>
+            </p>
+
+          </div>
+          <div class="card-footer text-muted">
+            Posted on June 17, 2020 by
+            <a href="http://linkedin.com/in/akp98/">Adarsh Pathak</a>
+          </div>
+        </div>
+    </div>
+</div>
+
+<footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; adarsh's blog 2020</p>
+      <p class="m-0 text-center text-white"><a href="https://github.com/16umm001/16umm001.github.io" target = _blank style="color: white;text-decoration: none;"><i class="fa fa-gift" aria-hidden="true"></i> Support blog</p>
+
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
