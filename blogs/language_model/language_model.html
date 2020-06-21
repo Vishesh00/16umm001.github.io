@@ -12,12 +12,13 @@
   	<meta name="description" content="My deep learning blog. I will post different deep learning algorithms here with proper explanation.">
   	<meta name="author" content="Adarsh Pathak">
 
-  	<meta name="keywords" content="Deep Learning, Reinforcement Learning, Natural Language Processing, NLP, computer vision, recurrent neural networks, rnn, convolutional neural networks, cnn,Deep neural networks,dnn,face recognition,Artificial Intelligence, AI, Machine Learning, ML, Data Science, Python">
+  	<meta name="keywords" content="Deep Learning, Reinforcement Learning, Natural Language Processing, NLP, computer vision, recurrent neural networks, rnn, convolutional neural networks, cnn,Deep neural networks,dnn,face recognition,Artificial Intelligence, AI, Machine Learning, ML, Data Science, Python,Language , Modelling , Name , Entity,Recognition">
 
 	<title>Language Modelling - adarsh's blog</title>
 
   	<link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   	<link href="../../css/blog-home.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
 </head>
 
@@ -51,16 +52,48 @@
         </br>
         <!-- Blog Post -->
         <div class="card mb-4">
-          <img class="card-img-top" src="imgs/lm_wall.png" alt="Gradient Descent Optimization">
+          <img class="card-img-top" src="imgs/lm_wall.png" alt="Language Modelling">
           <div class="card-body">
             <h2 class="card-title">Mathematics of Language Modelling</h2>
-          
+
+            <p class="card-text">
+                <STRONG> What is language model? Why should we learn this? How language modelling is affecting our daily life?</STRONG><br>
+                &emsp;Before defining language modelling let me define some symbols which we will use to define this.<br>
+
+                <div style="width: 100%;padding: 10px;border: 5px solid gray;margin: 0;">
+                <ol>
+                  <li>
+                    &nu;:&nbsp; set of all words in a language. for example to build a language model in english we might have,<br>&emsp;&emsp; &nu; = {the , dog , laugh, saw , bark ,cat , .....}<br>
+                    &emsp; We assume &nu; is finite set. &nu; can be very large, it can have ten thousand words (even more words are possible).
+                  </li>
+                  <li>
+                    &nu;<sup>†</sup>:&nbsp; Set of all sentences with the vocabulary &nu; , this is an infinite set because setences can be of any length.
+                  </li>
+                  <li>
+                    A sentense in the language is a sequence of words:<br>
+                    &emsp;&emsp;x<sub>1</sub>x<sub>2</sub>x<sub>3</sub>.......x<sub>n</sub><br>
+                    where n &isin; I ; n&ge;1; and x<sub>i</sub> &isin; &nu; ; i &isin; {1,.....(n-1)};<br> we assume x<sub>n</sub> is special symbol STOP.<br>
+                    Example: the dog barks STOP
+                  </li> 
+                </ol> 
+              </div>
+              <br>
+              &emsp; A language model has a finite set &nu; and a function p(x<sub>1</sub>,x<sub>2</sub>,x<sub>3</sub>,.......,x<sub>n</sub>) such that :<br>
+                for any (x<sub>1</sub>,x<sub>2</sub>,x<sub>3</sub>,.......,x<sub>n</sub>) &isin; &nu;<sup>†</sup> , p(x<sub>1</sub>,x<sub>2</sub>,x<sub>3</sub>,.......,x<sub>n</sub>) &ge;0 <br> and
+                <img src="imgs/lm_equns_1.png">
+            </p>
+              <br>
+            <p class="card-text">
+              
+
+            </p>
+
           </div>
 
 
           <!-- References -->
           <p class="card-text">
-              <h4> &nbsp;References:</h4>
+              <h4> <STRONG>&nbsp;References:</STRONG></h4>
               <p style="margin-left: 50px">
                 <ol>
                   <li>
